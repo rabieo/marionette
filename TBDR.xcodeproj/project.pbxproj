@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC00000126140000000AA001 /* RobotWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000026140000000AA001 /* RobotWebSocketClient.swift */; };
+		CC00000226140000000AA001 /* RobotWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000026140000000AA001 /* RobotWebSocketClient.swift */; };
+		CC00000426140000000AA001 /* RobotKinematics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000326140000000AA001 /* RobotKinematics.swift */; };
+		CC00000526140000000AA001 /* RobotKinematics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000326140000000AA001 /* RobotKinematics.swift */; };
 		82044E4726C8BA80008347C1 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82044E4626C8BA80008347C1 /* Options.swift */; };
 		82044E4826C8BA80008347C1 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82044E4626C8BA80008347C1 /* Options.swift */; };
 		8209F8932781A2A900A055C6 /* TiledDeferredRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209F8922781A2A900A055C6 /* TiledDeferredRenderPass.swift */; };
@@ -171,6 +175,8 @@
 		82DB3358277FDA1000A8A1DB /* icosphere.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = icosphere.mtl; sourceTree = "<group>"; };
 		82EDE5E526CCC4BB00DE47E4 /* TextureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureController.swift; sourceTree = "<group>"; };
 		82EDE5E826CCD32600DE47E4 /* Textures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Textures.xcassets; sourceTree = "<group>"; };
+		CC00000026140000000AA001 /* RobotWebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotWebSocketClient.swift; sourceTree = "<group>"; };
+		CC00000326140000000AA001 /* RobotKinematics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotKinematics.swift; sourceTree = "<group>"; };
 		82F19C5C273DEE8B001C5657 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		82F19CE12740BECA001C5657 /* DebugLights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLights.swift; sourceTree = "<group>"; };
 		82F19CE22740BECA001C5657 /* DebugLights.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = DebugLights.metal; sourceTree = "<group>"; };
@@ -304,6 +310,8 @@
 				820B882626B8E50F0070A134 /* Renderer.swift */,
 				827DDAED2738DE15000E88B4 /* GameScene.swift */,
 				82F19CE72740C59D001C5657 /* SceneLighting.swift */,
+				CC00000026140000000AA001 /* RobotWebSocketClient.swift */,
+				CC00000326140000000AA001 /* RobotKinematics.swift */,
 				82D9AD802738F23E003E025A /* Camera.swift */,
 				82D9AD8927390D8C003E025A /* PlayerCamera.swift */,
 				824EE07C277EE3EC004D64C1 /* ShadowCamera.swift */,
@@ -555,6 +563,8 @@
 			files = (
 				8224335726CB7C7100F627C5 /* Submesh.swift in Sources */,
 				82F19C5D273DEE8B001C5657 /* GameController.swift in Sources */,
+				CC00000126140000000AA001 /* RobotWebSocketClient.swift in Sources */,
+				CC00000426140000000AA001 /* RobotKinematics.swift in Sources */,
 				8209F8932781A2A900A055C6 /* TiledDeferredRenderPass.swift in Sources */,
 				82B8FAA527797E2F00DDACCC /* ForwardRenderPass.swift in Sources */,
 				820B882D26B8E5290070A134 /* VertexDescriptor.swift in Sources */,
@@ -598,6 +608,8 @@
 			files = (
 				8224335826CB7C7100F627C5 /* Submesh.swift in Sources */,
 				82F19C5E273DEE8B001C5657 /* GameController.swift in Sources */,
+				CC00000226140000000AA001 /* RobotWebSocketClient.swift in Sources */,
+				CC00000526140000000AA001 /* RobotKinematics.swift in Sources */,
 				8209F8942781A2A900A055C6 /* TiledDeferredRenderPass.swift in Sources */,
 				82B8FAA627797E2F00DDACCC /* ForwardRenderPass.swift in Sources */,
 				820B882E26B8E5290070A134 /* VertexDescriptor.swift in Sources */,
@@ -823,6 +835,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MG3TW77X42;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -852,6 +865,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MG3TW77X42;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -39,6 +39,7 @@ class GameController: NSObject {
   var fps: Double = 0
   var deltaTime: Double = 0
   var lastTime: Double = CFAbsoluteTimeGetCurrent()
+  let robotWebSocket = RobotWebSocketClient()
 
   init(metalView: MTKView, options: Options) {
     renderer = Renderer(metalView: metalView, options: options)
@@ -47,6 +48,7 @@ class GameController: NSObject {
     self.options = options
     metalView.delegate = self
     fps = Double(metalView.preferredFramesPerSecond)
+    robotWebSocket.connect()
   }
 }
 
@@ -60,7 +62,9 @@ extension GameController: MTKViewDelegate {
     let currentTime = CFAbsoluteTimeGetCurrent()
     let deltaTime = (currentTime - lastTime)
     lastTime = currentTime
-    scene.update(deltaTime: Float(deltaTime))
+    scene.update(
+      deltaTime: Float(deltaTime),
+      motorValues: robotWebSocket.latestAction)
     renderer.draw(scene: scene, in: view)
   }
 }

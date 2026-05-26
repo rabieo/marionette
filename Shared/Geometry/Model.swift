@@ -41,6 +41,7 @@ class Model: Transformable {
   var tiling: UInt32 = 1
   var name: String
   var materialOverride: Material?
+  var modelMatrixOverride: float4x4?
 
   init(name: String) {
     guard let assetURL = Bundle.main.url(
@@ -89,7 +90,7 @@ extension Model {
   ) {
     encoder.pushDebugGroup(name)
     var uniforms = vertex
-    uniforms.modelMatrix = transform.modelMatrix
+    uniforms.modelMatrix = modelMatrixOverride ?? transform.modelMatrix
     uniforms.normalMatrix = uniforms.modelMatrix.upperLeft
     var params = fragment
     params.tiling = tiling

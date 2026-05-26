@@ -34,6 +34,12 @@ import MetalKit
 
 struct GameScene {
   static var objectId: UInt32 = 1
+  let kinematics = RobotKinematics()
+
+  // Robot part model index → joint level (0-5), -1 = static
+  private var robotPartJoints: [(index: Int, level: Int)] = []
+  // Home model matrices captured at init
+  private var homeMatrices: [Int: float4x4] = [:]
 
   // Robot arm parts — transforms from URDF kinematic chain (Z-up → Y-up)
   lazy var basePart: Model = {
@@ -200,19 +206,38 @@ struct GameScene {
     treefir2.position = [-3, 0, -2]
     treefir3.position = [1.5, 0, -0.5]
     models = [
-      ground, treefir1, treefir2, treefir3,
-      basePart, baseMotorHolder, motorHolderBase, motorHolderWrist,
-      rotationPitch, upperArm, underArm,
-      wristRollPitch, wristRollFollower,
-      movingJaw
+      ground, treefir1, treefir2, treefir3,        // 0-3
+      basePart, baseMotorHolder,                    // 4-5  (static)
+      motorHolderBase, motorHolderWrist,            // 6-7
+      rotationPitch, upperArm, underArm,            // 8-10
+      wristRollPitch, wristRollFollower,            // 11-12
+      movingJaw                                     // 13
     ]
+
+    // Map each robot part to its kinematic joint level
+    // joint -1 = static (base), 0 = shoulder_pan, 1 = shoulder_lift,
+    // 2 = elbow_flex, 3 = wrist_flex, 4 = wrist_roll, 5 = gripper
+    robotPartJoints = [
+      (4, -1), (5, -1),     // base parts: static
+      (6,  0), (8,  0),     // motorHolderBase, rotationPitch: shoulder_pan
+      (9,  1),              // upperArm: shoulder_lift
+      (7,  2), (10, 2),     // motorHolderWrist, underArm: elbow_flex
+      (11, 3),              // wristRollPitch: wrist_flex
+      (12, 4),              // wristRollFollower: wrist_roll
+      (13, 5),              // movingJaw: gripper
+    ]
+
+    // Capture home model matrices
+    for part in robotPartJoints {
+      homeMatrices[part.index] = models[part.index].transform.modelMatrix
+    }
   }
 
   mutating func update(size: CGSize) {
     camera.update(size: size)
   }
 
-  mutating func update(deltaTime: Float) {
+  mutating func update(deltaTime: Float, motorValues: [String: Float] = [:]) {
     let input = InputController.shared
     if input.keysPressed.contains(.one) {
       camera.transform = Transform()
@@ -222,5 +247,17 @@ struct GameScene {
     }
     input.keysPressed.removeAll()
     camera.update(deltaTime: deltaTime)
+
+    // Forward kinematics: compute delta transforms from motor values
+    kinematics.update(motorValues: motorValues)
+    let deltas = kinematics.computeDeltas()
+
+    for part in robotPartJoints {
+      guard part.level >= 0,
+            part.level < deltas.count,
+            let home = homeMatrices[part.index]
+      else { continue }
+      models[part.index].modelMatrixOverride = deltas[part.level] * home
+    }
   }
 }
