@@ -9,9 +9,13 @@ class GameController: NSObject {
   var fps: Double = 0
   var deltaTime: Double = 0
   var lastTime: Double = CFAbsoluteTimeGetCurrent()
-  let robotWebSocket = RobotWebSocketClient()
+  let robotWebSocket: RobotWebSocketClient
 
-  init(metalView: MTKView, options: Options) {
+  init(metalView: MTKView,
+       options: Options,
+       robotWebSocket: RobotWebSocketClient)
+  {
+    self.robotWebSocket = robotWebSocket
     renderer = Renderer(metalView: metalView, options: options)
     scene = GameScene()
     super.init()

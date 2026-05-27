@@ -38,4 +38,9 @@ float calculateShadow(
   float4 shadowPosition,
   depth2d<float> shadowTexture);
 
+/// ACES filmic tone map. Maps HDR linear → display-referred linear [0,1].
+/// Pair with a .bgra8Unorm_srgb framebuffer so the hardware applies the
+/// sRGB encode for free.
+float3 acesTonemap(float3 hdr);
+
 #endif /* Lighting_h */

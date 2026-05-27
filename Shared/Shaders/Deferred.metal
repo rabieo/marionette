@@ -65,7 +65,7 @@ fragment float4 fragment_deferredSun(
   };
   float3 color = phongLighting(normal, position, params, lights, material);
   color *= albedo.a;
-  return float4(color, 1);
+  return float4(acesTonemap(color), 1);
 }
 
 struct PointLightIn {
@@ -115,7 +115,10 @@ fragment float4 fragment_pointLight(
   float3 lighting =
     calculatePoint(light, position, normal, material);
   lighting *= 0.5;
-  return float4(lighting, 1);
+  // Additive blending: framebuffer is .bgra8Unorm_srgb so the HW decodes the
+  // existing sun pass back to linear before adding. Tonemapping per-pass is
+  // technically wrong (ideal: ACES(sun + points)) but visually acceptable.
+  return float4(acesTonemap(lighting), 1);
 }
 
 // MARK: - Tiling functions
@@ -136,7 +139,7 @@ fragment float4 fragment_tiled_deferredSun(
   };
   float3 color = phongLighting(normal, position, params, lights, material);
   color *= albedo.a;
-  return float4(color, 1);
+  return float4(acesTonemap(color), 1);
 }
 
 fragment float4 fragment_tiled_pointLight(
@@ -154,5 +157,5 @@ fragment float4 fragment_tiled_pointLight(
   float3 lighting =
     calculatePoint(light, position, normal, material);
   lighting *= 0.5;
-  return float4(lighting, 1);
+  return float4(acesTonemap(lighting), 1);
 }

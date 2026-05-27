@@ -129,3 +129,13 @@ float calculateShadow(
   return (position.z > shadow_sample + 0.001) ? 0.5 : 1;
 }
 
+float3 acesTonemap(float3 x) {
+  // Narkowicz 2015 ACES fit — same curve everyone uses; cheap, three muls.
+  const float a = 2.51;
+  const float b = 0.03;
+  const float c = 2.43;
+  const float d = 0.59;
+  const float e = 0.14;
+  return saturate((x * (a * x + b)) / (x * (c * x + d) + e));
+}
+

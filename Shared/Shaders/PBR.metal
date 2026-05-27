@@ -98,7 +98,7 @@ fragment float4 fragment_PBR(
   }
   // shadow calculation
   diffuseColor *= calculateShadow(in.shadowPosition, shadowTexture);
-  return float4(diffuseColor + specularColor, 1);
+  return float4(acesTonemap(diffuseColor + specularColor), 1);
 }
 
 float G1V(float nDotV, float k)

@@ -29,6 +29,10 @@ class Renderer: NSObject {
     Renderer.device = device
     Renderer.commandQueue = commandQueue
     metalView.device = device
+    // sRGB framebuffer: shaders write linear [0,1] (post-ACES) and the hardware
+    // applies the sRGB encode on write. Must be set before the render passes
+    // build their pipelines (they capture view.colorPixelFormat).
+    metalView.colorPixelFormat = .bgra8Unorm_srgb
 
     // create the shader function library
     let library = device.makeDefaultLibrary()
@@ -47,10 +51,12 @@ class Renderer: NSObject {
       options.renderChoice = .forward
     }
     super.init()
+    // Clear color is in linear space because the framebuffer is sRGB-encoded.
+    // Values below are sRGB(0.93, 0.97, 1.0) decoded → linear ≈ (0.85, 0.93, 1.0).
     metalView.clearColor = MTLClearColor(
-      red: 0.93,
-      green: 0.97,
-      blue: 1.0,
+      red: 0.848,
+      green: 0.933,
+      blue: 1.000,
       alpha: 1.0)
     metalView.depthStencilPixelFormat = .depth32Float
     mtkView(metalView, drawableSizeWillChange: metalView.bounds.size)

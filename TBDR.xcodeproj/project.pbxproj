@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CC00000126140000000AA001 /* RobotWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000026140000000AA001 /* RobotWebSocketClient.swift */; };
-		CC00000226140000000AA001 /* RobotWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000026140000000AA001 /* RobotWebSocketClient.swift */; };
-		CC00000426140000000AA001 /* RobotKinematics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000326140000000AA001 /* RobotKinematics.swift */; };
-		CC00000526140000000AA001 /* RobotKinematics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000326140000000AA001 /* RobotKinematics.swift */; };
+		0776F33C2FC7634800B3C291 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F33B2FC7634800B3C291 /* TopBar.swift */; };
+		0776F33D2FC7634800B3C291 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F3372FC7634800B3C291 /* AppState.swift */; };
+		0776F33E2FC7634800B3C291 /* Inspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F3392FC7634800B3C291 /* Inspector.swift */; };
+		0776F33F2FC7634800B3C291 /* BottomDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F3382FC7634800B3C291 /* BottomDock.swift */; };
+		0776F3402FC7634800B3C291 /* SceneOutliner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F33A2FC7634800B3C291 /* SceneOutliner.swift */; };
+		0776F3412FC7634800B3C291 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F33B2FC7634800B3C291 /* TopBar.swift */; };
+		0776F3422FC7634800B3C291 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F3372FC7634800B3C291 /* AppState.swift */; };
+		0776F3432FC7634800B3C291 /* Inspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F3392FC7634800B3C291 /* Inspector.swift */; };
+		0776F3442FC7634800B3C291 /* BottomDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F3382FC7634800B3C291 /* BottomDock.swift */; };
+		0776F3452FC7634800B3C291 /* SceneOutliner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776F33A2FC7634800B3C291 /* SceneOutliner.swift */; };
 		82044E4726C8BA80008347C1 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82044E4626C8BA80008347C1 /* Options.swift */; };
 		82044E4826C8BA80008347C1 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82044E4626C8BA80008347C1 /* Options.swift */; };
 		8209F8932781A2A900A055C6 /* TiledDeferredRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8209F8922781A2A900A055C6 /* TiledDeferredRenderPass.swift */; };
@@ -103,35 +109,44 @@
 		82FABCFE27806D85004E58B0 /* Deferred.metal in Sources */ = {isa = PBXBuildFile; fileRef = 82FABCFC27806D84004E58B0 /* Deferred.metal */; };
 		82FABD00278070FC004E58B0 /* LightingRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FABCFF278070FC004E58B0 /* LightingRenderPass.swift */; };
 		82FABD01278070FC004E58B0 /* LightingRenderPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FABCFF278070FC004E58B0 /* LightingRenderPass.swift */; };
-		AB183E006C23C9461CB06C5C /* Base_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA183E006C23C9461CB06C5C /* Base_SO101.stl */; };
-		AC183E006C23C9461CB06C5C /* Base_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA183E006C23C9461CB06C5C /* Base_SO101.stl */; };
-		ABAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl */; };
-		ACAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl */; };
-		ABB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl */; };
-		ACB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl */; };
-		ABB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl */; };
-		ACB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl */; };
-		AB124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl */; };
-		AC124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl */; };
-		ABD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl */; };
-		ACD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl */; };
-		AB6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl */; };
-		AC6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl */; };
-		ABF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl */; };
-		ACF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl */; };
-		AB509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl */; };
-		AC509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl */; };
-		ABCC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AACC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl */; };
-		ACCC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AACC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl */; };
 		AB042FCC03F6FC5927E493FA /* Moving_Jaw_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA042FCC03F6FC5927E493FA /* Moving_Jaw_SO101.stl */; };
-		AC042FCC03F6FC5927E493FA /* Moving_Jaw_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA042FCC03F6FC5927E493FA /* Moving_Jaw_SO101.stl */; };
+		AB124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl */; };
+		AB183E006C23C9461CB06C5C /* Base_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA183E006C23C9461CB06C5C /* Base_SO101.stl */; };
+		AB509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl */; };
 		AB52CC46A03390673007A0BE /* Trigger_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA52CC46A03390673007A0BE /* Trigger_SO101.stl */; };
-		AC52CC46A03390673007A0BE /* Trigger_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA52CC46A03390673007A0BE /* Trigger_SO101.stl */; };
+		AB6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl */; };
 		AB9BE5A12E6E3B5171CDE6C8 /* Handle_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA9BE5A12E6E3B5171CDE6C8 /* Handle_SO101.stl */; };
+		ABAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl */; };
+		ABB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl */; };
+		ABB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl */; };
+		ABCC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AACC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl */; };
+		ABD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl */; };
+		ABF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl */; };
+		AC042FCC03F6FC5927E493FA /* Moving_Jaw_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA042FCC03F6FC5927E493FA /* Moving_Jaw_SO101.stl */; };
+		AC124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl */; };
+		AC183E006C23C9461CB06C5C /* Base_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA183E006C23C9461CB06C5C /* Base_SO101.stl */; };
+		AC509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl */; };
+		AC52CC46A03390673007A0BE /* Trigger_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA52CC46A03390673007A0BE /* Trigger_SO101.stl */; };
+		AC6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl */; };
 		AC9BE5A12E6E3B5171CDE6C8 /* Handle_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AA9BE5A12E6E3B5171CDE6C8 /* Handle_SO101.stl */; };
+		ACAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl */; };
+		ACB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl */; };
+		ACB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl */; };
+		ACCC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AACC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl */; };
+		ACD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl */; };
+		ACF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl in Resources */ = {isa = PBXBuildFile; fileRef = AAF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl */; };
+		CC00000126140000000AA001 /* RobotWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000026140000000AA001 /* RobotWebSocketClient.swift */; };
+		CC00000226140000000AA001 /* RobotWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000026140000000AA001 /* RobotWebSocketClient.swift */; };
+		CC00000426140000000AA001 /* RobotKinematics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000326140000000AA001 /* RobotKinematics.swift */; };
+		CC00000526140000000AA001 /* RobotKinematics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000326140000000AA001 /* RobotKinematics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0776F3372FC7634800B3C291 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		0776F3382FC7634800B3C291 /* BottomDock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomDock.swift; sourceTree = "<group>"; };
+		0776F3392FC7634800B3C291 /* Inspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspector.swift; sourceTree = "<group>"; };
+		0776F33A2FC7634800B3C291 /* SceneOutliner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneOutliner.swift; sourceTree = "<group>"; };
+		0776F33B2FC7634800B3C291 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		82044E4626C8BA80008347C1 /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		8209F8922781A2A900A055C6 /* TiledDeferredRenderPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiledDeferredRenderPass.swift; sourceTree = "<group>"; };
 		820B880526B8E47D0070A134 /* ShadowsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowsApp.swift; sourceTree = "<group>"; };
@@ -175,8 +190,6 @@
 		82DB3358277FDA1000A8A1DB /* icosphere.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = icosphere.mtl; sourceTree = "<group>"; };
 		82EDE5E526CCC4BB00DE47E4 /* TextureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureController.swift; sourceTree = "<group>"; };
 		82EDE5E826CCD32600DE47E4 /* Textures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Textures.xcassets; sourceTree = "<group>"; };
-		CC00000026140000000AA001 /* RobotWebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotWebSocketClient.swift; sourceTree = "<group>"; };
-		CC00000326140000000AA001 /* RobotKinematics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotKinematics.swift; sourceTree = "<group>"; };
 		82F19C5C273DEE8B001C5657 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		82F19CE12740BECA001C5657 /* DebugLights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLights.swift; sourceTree = "<group>"; };
 		82F19CE22740BECA001C5657 /* DebugLights.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = DebugLights.metal; sourceTree = "<group>"; };
@@ -185,19 +198,21 @@
 		82F19CEB2740C99E001C5657 /* Lighting.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Lighting.metal; sourceTree = "<group>"; };
 		82FABCFC27806D84004E58B0 /* Deferred.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Deferred.metal; sourceTree = "<group>"; };
 		82FABCFF278070FC004E58B0 /* LightingRenderPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightingRenderPass.swift; sourceTree = "<group>"; };
-		AA183E006C23C9461CB06C5C /* Base_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Base_SO101.stl; sourceTree = "<group>"; };
-		AAAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Base_motor_holder_SO101.stl; sourceTree = "<group>"; };
-		AAB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Motor_holder_SO101_Base.stl; sourceTree = "<group>"; };
-		AAB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Motor_holder_SO101_Wrist.stl; sourceTree = "<group>"; };
-		AA124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rotation_Pitch_SO101.stl; sourceTree = "<group>"; };
-		AAD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Upper_arm_SO101.stl; sourceTree = "<group>"; };
-		AA6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Under_arm_SO101.stl; sourceTree = "<group>"; };
-		AAF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wrist_Roll_SO101.stl; sourceTree = "<group>"; };
-		AA509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wrist_Roll_Pitch_SO101.stl; sourceTree = "<group>"; };
-		AACC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wrist_Roll_Follower_SO101.stl; sourceTree = "<group>"; };
 		AA042FCC03F6FC5927E493FA /* Moving_Jaw_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Moving_Jaw_SO101.stl; sourceTree = "<group>"; };
+		AA124E51F4D78905B563718E /* Rotation_Pitch_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rotation_Pitch_SO101.stl; sourceTree = "<group>"; };
+		AA183E006C23C9461CB06C5C /* Base_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Base_SO101.stl; sourceTree = "<group>"; };
+		AA509C4BB83AA17EB3EDCBAD /* Wrist_Roll_Pitch_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wrist_Roll_Pitch_SO101.stl; sourceTree = "<group>"; };
 		AA52CC46A03390673007A0BE /* Trigger_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trigger_SO101.stl; sourceTree = "<group>"; };
+		AA6A332C69F0E3E15D1B027D /* Under_arm_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Under_arm_SO101.stl; sourceTree = "<group>"; };
 		AA9BE5A12E6E3B5171CDE6C8 /* Handle_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Handle_SO101.stl; sourceTree = "<group>"; };
+		AAAD4AF175E5DF6A0FCD22C2 /* Base_motor_holder_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Base_motor_holder_SO101.stl; sourceTree = "<group>"; };
+		AAB1F1A59B5862CB6391B6DC /* Motor_holder_SO101_Wrist.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Motor_holder_SO101_Wrist.stl; sourceTree = "<group>"; };
+		AAB7D77283C1355D5EDD8F8A /* Motor_holder_SO101_Base.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Motor_holder_SO101_Base.stl; sourceTree = "<group>"; };
+		AACC33636F4374C49415C3A7 /* Wrist_Roll_Follower_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wrist_Roll_Follower_SO101.stl; sourceTree = "<group>"; };
+		AAD0A21790CBF782B7744CFE /* Upper_arm_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Upper_arm_SO101.stl; sourceTree = "<group>"; };
+		AAF045DFF50BEAA8F2381066 /* Wrist_Roll_SO101.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wrist_Roll_SO101.stl; sourceTree = "<group>"; };
+		CC00000026140000000AA001 /* RobotWebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotWebSocketClient.swift; sourceTree = "<group>"; };
+		CC00000326140000000AA001 /* RobotKinematics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotKinematics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +271,11 @@
 		820B882226B8E4EF0070A134 /* SwiftUI Views */ = {
 			isa = PBXGroup;
 			children = (
+				0776F3372FC7634800B3C291 /* AppState.swift */,
+				0776F3382FC7634800B3C291 /* BottomDock.swift */,
+				0776F3392FC7634800B3C291 /* Inspector.swift */,
+				0776F33A2FC7634800B3C291 /* SceneOutliner.swift */,
+				0776F33B2FC7634800B3C291 /* TopBar.swift */,
 				820B880626B8E47D0070A134 /* ContentView.swift */,
 				820B882326B8E4FE0070A134 /* MetalView.swift */,
 				82044E4626C8BA80008347C1 /* Options.swift */,
@@ -599,6 +619,11 @@
 				820B881326B8E47E0070A134 /* ShadowsApp.swift in Sources */,
 				824A97AC2774601B00DA096F /* PBR.metal in Sources */,
 				82D9AD8A27390D8C003E025A /* PlayerCamera.swift in Sources */,
+				0776F3412FC7634800B3C291 /* TopBar.swift in Sources */,
+				0776F3422FC7634800B3C291 /* AppState.swift in Sources */,
+				0776F3432FC7634800B3C291 /* Inspector.swift in Sources */,
+				0776F3442FC7634800B3C291 /* BottomDock.swift in Sources */,
+				0776F3452FC7634800B3C291 /* SceneOutliner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +669,11 @@
 				820B881426B8E47E0070A134 /* ShadowsApp.swift in Sources */,
 				824A97AB2774601A00DA096F /* PBR.metal in Sources */,
 				82D9AD8B27390D8C003E025A /* PlayerCamera.swift in Sources */,
+				0776F33C2FC7634800B3C291 /* TopBar.swift in Sources */,
+				0776F33D2FC7634800B3C291 /* AppState.swift in Sources */,
+				0776F33E2FC7634800B3C291 /* Inspector.swift in Sources */,
+				0776F33F2FC7634800B3C291 /* BottomDock.swift in Sources */,
+				0776F3402FC7634800B3C291 /* SceneOutliner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,7 +808,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -808,7 +838,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -844,7 +874,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = raywenderlich.TBDR;
 				PRODUCT_NAME = TBDR;
@@ -874,7 +904,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = raywenderlich.TBDR;
 				PRODUCT_NAME = TBDR;

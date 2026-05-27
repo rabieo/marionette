@@ -72,5 +72,5 @@ fragment float4 fragment_main(
     material
   );
   color *= calculateShadow(in.shadowPosition, shadowTexture);
-  return float4(color, 1);
+  return float4(acesTonemap(color), 1);
 }
