@@ -12,10 +12,19 @@ struct JointDef {
 
 /// Forward kinematics for the SO-101 robot arm.
 ///
-/// Uses the delta approach: for each joint level, computes
-/// `delta = currentFrame * inverse(homeFrame)` so that
-/// `model.worldMatrix = delta * model.homeMatrix`.
+/// `computeWorldFrames()` returns one world-space matrix per kinematic level
+/// (0 = base, 1..6 = each joint after rotation). Callers render visuals as
+/// `frames[level+1] * visualOrigin * scale`, where `visualOrigin` is the
+/// URDF `<visual><origin>` for that mesh in its link frame.
 class RobotKinematics {
+
+  /// URDF rpy convention: fixed-axis x→y→z. Matrix = Rz * Ry * Rx.
+  /// Different from `float4x4(rotation:)` which does Rx * Ry * Rz.
+  static func urdfRPY(_ rpy: float3) -> float4x4 {
+    float4x4(rotationZ: rpy.z)
+      * float4x4(rotationY: rpy.y)
+      * float4x4(rotationX: rpy.x)
+  }
 
   // URDF kinematic chain (matches RobotArm.tsx)
   static let joints: [JointDef] = [
@@ -48,9 +57,6 @@ class RobotKinematics {
   // Z-up → Y-up
   private let rootTransform = float4x4(rotationX: -Float.pi / 2)
 
-  // Home frames (all angles = 0) and their inverses
-  private var homeFrameInverses: [float4x4] = []
-
   // Interpolated / target angles (radians)
   private var currentAngles: [Float]
   private var targetAngles: [Float]
@@ -61,15 +67,6 @@ class RobotKinematics {
     let n = Self.joints.count
     currentAngles = Array(repeating: 0, count: n)
     targetAngles = Array(repeating: 0, count: n)
-
-    // Compute home frames with all actuated angles = 0
-    var accum = rootTransform
-    for joint in Self.joints {
-      let frame = float4x4(translation: joint.position)
-                * float4x4(rotation: joint.fixedRotation)
-      accum = accum * frame
-      homeFrameInverses.append(accum.inverse)
-    }
   }
 
   // MARK: - Conversion
@@ -98,19 +95,18 @@ class RobotKinematics {
 
   // MARK: - Forward kinematics
 
-  /// Returns one delta matrix per joint level.
-  /// `delta[i] = currentFrame[i] * inverse(homeFrame[i])`
-  func computeDeltas() -> [float4x4] {
+  /// `frames[0]` = chain root (base, no joint rotations).
+  /// `frames[i+1]` = world frame at joint `i` with its current angle applied.
+  func computeWorldFrames() -> [float4x4] {
+    var frames: [float4x4] = [rootTransform]
     var accum = rootTransform
-    var deltas: [float4x4] = []
-
     for (i, joint) in Self.joints.enumerated() {
       let frame = float4x4(translation: joint.position)
-                * float4x4(rotation: joint.fixedRotation)
+                * Self.urdfRPY(joint.fixedRotation)
                 * float4x4(rotationZ: currentAngles[i])
       accum = accum * frame
-      deltas.append(accum * homeFrameInverses[i])
+      frames.append(accum)
     }
-    return deltas
+    return frames
   }
 }

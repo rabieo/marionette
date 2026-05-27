@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(xargs ls:*)",
-      "Bash(xcodebuild:*)"
+      "Bash(xcodebuild:*)",
+      "Read(//Users/omar/n1o0/robot_sim/src/**)",
+      "Read(//Users/omar/n1o0/robot_sim/**)"
     ]
   }
 }

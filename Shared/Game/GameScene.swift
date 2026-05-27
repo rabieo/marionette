@@ -1,45 +1,26 @@
-/// Copyright (c) 2022 Razeware LLC
-///
-/// Permission is hereby granted, free of charge, to any person obtaining a copy
-/// of this software and associated documentation files (the "Software"), to deal
-/// in the Software without restriction, including without limitation the rights
-/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-/// copies of the Software, and to permit persons to whom the Software is
-/// furnished to do so, subject to the following conditions:
-///
-/// The above copyright notice and this permission notice shall be included in
-/// all copies or substantial portions of the Software.
-///
-/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
-/// distribute, sublicense, create a derivative work, and/or sell copies of the
-/// Software in any work that is designed, intended, or marketed for pedagogical or
-/// instructional purposes related to programming, coding, application development,
-/// or information technology.  Permission for such use, copying, modification,
-/// merger, publication, distribution, sublicensing, creation of derivative works,
-/// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
 
 import MetalKit
+
+/// Placement of one STL inside the SO-101 kinematic chain.
+/// Values come straight from the URDF (`so101_new_calib.urdf`):
+///   `level`     = -1 for base_link, 0..5 for joint output frames
+///   `visualXYZ` = `<visual><origin xyz=...>` in the link frame (meters)
+///   `visualRPY` = `<visual><origin rpy=...>` in URDF fixed-axis convention
+private struct RobotPart {
+  let modelIndex: Int
+  let level: Int
+  let visualXYZ: float3
+  let visualRPY: float3
+}
 
 struct GameScene {
   static var objectId: UInt32 = 1
   let kinematics = RobotKinematics()
 
-  // Robot part model index → joint level (0-5), -1 = static
-  private var robotPartJoints: [(index: Int, level: Int)] = []
-  // Home model matrices captured at init
-  private var homeMatrices: [Int: float4x4] = [:]
+  // STL meshes are in millimeters; URDF and chain are in meters.
+  static let robotMeshScale: Float = 0.001
+
+  private var robotParts: [RobotPart] = []
 
   // Robot arm parts — transforms from URDF kinematic chain (Z-up → Y-up)
   lazy var basePart: Model = {
@@ -152,26 +133,6 @@ struct GameScene {
     m.rotation = [0.04868, 0.00001, 1.57080]
     return m
   }()
-//  lazy var trigger: Model = {
-//    var m = Model(name: "Trigger_SO101.stl")
-//    m.materialOverride = Material(
-//      baseColor: [0.17, 0.17, 0.17], specularColor: [0.4, 0.4, 0.4],
-//      roughness: 0.6, metallic: 0.5, ambientOcclusion: 1, shininess: 20)
-//    m.scale = 0.0040
-//    m.position = [1.2665, 1.0218, -0.0705]
-//    m.rotation = [0.04868, 0.00001, 1.57080]
-//    return m
-//  }()
-//  lazy var handle: Model = {
-//    var m = Model(name: "Handle_SO101.stl")
-//    m.materialOverride = Material(
-//      baseColor: [0.8, 0.0, 0.8], specularColor: [1.0, 0.4, 1.0],
-//      roughness: 0.4, metallic: 0.3, ambientOcclusion: 1, shininess: 40)
-//    m.scale = 0.0040
-//    m.position = [1.5653, 0.9059, 0.0000]
-//    m.rotation = [-2.39353, 1.57078, 0.87141]
-//    return m
-//  }()
 
   lazy var treefir1: Model = {
     Model(name: "treefir.obj")
@@ -191,7 +152,7 @@ struct GameScene {
 
   var defaultView: Transform {
     Transform(
-      position: [0.6, 1.5, 3.0],
+      position: [0.0, 0.3, 0.7],
       rotation: [-0.3, 0.0, 0.0])
   }
 
@@ -199,9 +160,9 @@ struct GameScene {
 
   init() {
     camera.transform = defaultView
-    camera.target = [0.6, 0.5, 0]
-    camera.distance = 4
-    camera.far = 20
+    camera.target = [0, 0.15, 0]
+    camera.distance = 0.7
+    camera.far = 10
     treefir1.position = [-1, 0, 2.5]
     treefir2.position = [-3, 0, -2]
     treefir3.position = [1.5, 0, -0.5]
@@ -214,23 +175,48 @@ struct GameScene {
       movingJaw                                     // 13
     ]
 
-    // Map each robot part to its kinematic joint level
-    // joint -1 = static (base), 0 = shoulder_pan, 1 = shoulder_lift,
-    // 2 = elbow_flex, 3 = wrist_flex, 4 = wrist_roll, 5 = gripper
-    robotPartJoints = [
-      (4, -1), (5, -1),     // base parts: static
-      (6,  0), (8,  0),     // motorHolderBase, rotationPitch: shoulder_pan
-      (9,  1),              // upperArm: shoulder_lift
-      (7,  2), (10, 2),     // motorHolderWrist, underArm: elbow_flex
-      (11, 3),              // wristRollPitch: wrist_flex
-      (12, 4),              // wristRollFollower: wrist_roll
-      (13, 5),              // movingJaw: gripper
+    // URDF link + visual origin per active robot model.
+    // Source: SO-ARM100/Simulation/SO101/so101_new_calib.urdf
+    let pi2 = Float.pi / 2
+    robotParts = [
+      // base_link (static, level -1)
+      RobotPart(modelIndex: 4, level: -1,
+                visualXYZ: [-0.00636471, 0, -0.0024],
+                visualRPY: [pi2, 0, pi2]),                 // base_so101_v2
+      RobotPart(modelIndex: 5, level: -1,
+                visualXYZ: [-0.00636471, 0, -0.0024],
+                visualRPY: [pi2, 0, pi2]),                 // base_motor_holder_so101_v1
+      // shoulder_link (joint 0 = shoulder_pan)
+      RobotPart(modelIndex: 6, level: 0,
+                visualXYZ: [-0.0675992, 0, 0.0158499],
+                visualRPY: [pi2, -pi2, 0]),                // motor_holder_so101_base_v1
+      RobotPart(modelIndex: 8, level: 0,
+                visualXYZ: [0.0122008, 0, 0.0464],
+                visualRPY: [-pi2, 0, 0]),                  // rotation_pitch_so101_v1
+      // upper_arm_link (joint 1 = shoulder_lift)
+      RobotPart(modelIndex: 9, level: 1,
+                visualXYZ: [-0.065085, 0.012, 0.0182],
+                visualRPY: [Float.pi, 0, 0]),              // upper_arm_so101_v1
+      // lower_arm_link (joint 2 = elbow_flex)
+      RobotPart(modelIndex: 7, level: 2,
+                visualXYZ: [-0.0648499, -0.032, 0.018],
+                visualRPY: [-Float.pi, 0, 0]),             // motor_holder_so101_wrist_v1
+      RobotPart(modelIndex: 10, level: 2,
+                visualXYZ: [-0.0648499, -0.032, 0.0182],
+                visualRPY: [Float.pi, 0, 0]),              // under_arm_so101_v1
+      // wrist_link (joint 3 = wrist_flex)
+      RobotPart(modelIndex: 11, level: 3,
+                visualXYZ: [0, -0.028, 0.0181],
+                visualRPY: [-pi2, -pi2, 0]),               // wrist_roll_pitch_so101_v2
+      // gripper_link (joint 4 = wrist_roll)
+      RobotPart(modelIndex: 12, level: 4,
+                visualXYZ: [0, -0.000218214, 0.000949706],
+                visualRPY: [-Float.pi, 0, 0]),             // wrist_roll_follower_so101_v1
+      // moving_jaw_so101_v1_link (joint 5 = gripper)
+      RobotPart(modelIndex: 13, level: 5,
+                visualXYZ: [0, 0, 0.0189],
+                visualRPY: [0, 0, 0]),                     // moving_jaw_so101_v1
     ]
-
-    // Capture home model matrices
-    for part in robotPartJoints {
-      homeMatrices[part.index] = models[part.index].transform.modelMatrix
-    }
   }
 
   mutating func update(size: CGSize) {
@@ -248,16 +234,19 @@ struct GameScene {
     input.keysPressed.removeAll()
     camera.update(deltaTime: deltaTime)
 
-    // Forward kinematics: compute delta transforms from motor values
+    // Forward kinematics: place each robot mesh inside its URDF link frame.
+    //   modelMatrix = frames[level+1] * T(visualXYZ) * R(visualRPY, URDF) * scale
     kinematics.update(motorValues: motorValues)
-    let deltas = kinematics.computeDeltas()
+    let frames = kinematics.computeWorldFrames()
+    let scaleMatrix = float4x4(scaling: Self.robotMeshScale)
 
-    for part in robotPartJoints {
-      guard part.level >= 0,
-            part.level < deltas.count,
-            let home = homeMatrices[part.index]
-      else { continue }
-      models[part.index].modelMatrixOverride = deltas[part.level] * home
+    for part in robotParts {
+      let frameIndex = part.level + 1
+      guard frameIndex < frames.count else { continue }
+      let visual = float4x4(translation: part.visualXYZ)
+                 * RobotKinematics.urdfRPY(part.visualRPY)
+      models[part.modelIndex].modelMatrixOverride =
+        frames[frameIndex] * visual * scaleMatrix
     }
   }
 }
