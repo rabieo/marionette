@@ -15,16 +15,39 @@ struct SceneLighting {
     return light
   }
 
-  let sunlight: Light = {
+  /// Blender-style three-point rig.
+  /// - Key: warm sun from upper-front-right (casts shadow — must be lights[0]).
+  /// - Fill: cool dim sun from upper-front-left to lift shadow side.
+  /// - Rim: bluish sun from behind-above to outline silhouettes.
+  /// - Ambient: slightly sky-tinted base.
+
+  let keyLight: Light = {
     var light = Self.buildDefaultLight()
-    light.position = [3, 3, -2]
-    light.color = float3(repeating: 1)
+    light.position = [3.5, 4.0, 2.0]               // upper-front-right
+    light.color = [1.00, 0.96, 0.88]                // warm ~5500 K
+    light.specularColor = [0.95, 0.92, 0.85]
+    return light
+  }()
+
+  let fillLight: Light = {
+    var light = Self.buildDefaultLight()
+    light.position = [-3.0, 3.0, 2.5]               // upper-front-left
+    light.color = [0.18, 0.21, 0.26]                // cool, ~30% intensity
+    light.specularColor = [0.05, 0.07, 0.10]
+    return light
+  }()
+
+  let rimLight: Light = {
+    var light = Self.buildDefaultLight()
+    light.position = [0.0, 3.5, -3.0]               // behind-above
+    light.color = [0.16, 0.19, 0.25]                // bluish, ~25% intensity
+    light.specularColor = [0.20, 0.24, 0.32]        // crisper rim highlight
     return light
   }()
 
   let ambientLight: Light = {
     var light = Self.buildDefaultLight()
-    light.color = float3(repeating: 0.1)
+    light.color = [0.10, 0.11, 0.14]                // sky-tinted ambient
     light.type = Ambient
     return light
   }()
@@ -37,7 +60,8 @@ struct SceneLighting {
   var pointBuffer: MTLBuffer
 
   init() {
-    sunlights = [sunlight, ambientLight]
+    // Order matters: lights[0] is what the shadow camera uses (Renderer.swift).
+    sunlights = [keyLight, fillLight, rimLight, ambientLight]
     sunBuffer = Self.createBuffer(lights: sunlights)
     lights = sunlights
     pointLights = Self.createPointLights(

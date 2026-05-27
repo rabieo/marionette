@@ -12,6 +12,8 @@ class Model: Transformable {
   var name: String
   var materialOverride: Material?
   var modelMatrixOverride: float4x4?
+  /// 0 = normal shading, 1 = procedural Blender-style grid floor.
+  var materialKind: UInt32 = 0
 
   init(name: String) {
     guard let assetURL = Bundle.main.url(
@@ -106,6 +108,11 @@ extension Model {
           &material,
           length: MemoryLayout<Material>.stride,
           index: MaterialBuffer.index)
+        var kind = materialKind
+        encoder.setFragmentBytes(
+          &kind,
+          length: MemoryLayout<UInt32>.stride,
+          index: MaterialKindBuffer.index)
         encoder.drawIndexedPrimitives(
           type: .triangle,
           indexCount: submesh.indexCount,

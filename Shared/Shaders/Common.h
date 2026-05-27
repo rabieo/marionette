@@ -44,7 +44,8 @@ typedef enum {
   UniformsBuffer = 11,
   ParamsBuffer = 12,
   LightBuffer = 13,
-  MaterialBuffer = 14
+  MaterialBuffer = 14,
+  MaterialKindBuffer = 15   // 0 = solid material, 1 = procedural grid floor
 } BufferIndices;
 
 typedef enum {

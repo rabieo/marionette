@@ -12,18 +12,59 @@ struct GBufferOut {
   float4 position [[color(RenderTargetPosition)]];
 };
 
-// 1
+// Blender-style procedural grid floor.
+// Uses screen-space derivatives so lines stay crisp at any zoom level.
+// `worldXZ` is in scene meters; major lines at 1 m, minor at 0.1 m.
+static float3 blenderGrid(float2 worldXZ, float distToCamera) {
+  // Base ground color (Blender's "Workbench" floor)
+  float3 base      = float3(0.270, 0.270, 0.290);
+  float3 majorLine = float3(0.440, 0.440, 0.470);
+  float3 minorLine = float3(0.330, 0.330, 0.360);
+  float3 xAxisCol  = float3(0.700, 0.260, 0.260);  // red — X axis (Blender)
+  float3 zAxisCol  = float3(0.350, 0.560, 0.870);  // blue — Y/up in Blender ≈ Z here
+
+  // Major grid (every 1 m)
+  float2 d1 = fwidth(worldXZ);
+  float2 g1 = abs(fract(worldXZ - 0.5) - 0.5) / d1;
+  float majorMask = 1.0 - saturate(min(g1.x, g1.y));
+
+  // Minor grid (every 0.1 m)
+  float2 uv2 = worldXZ * 10.0;
+  float2 d2  = fwidth(uv2);
+  float2 g2  = abs(fract(uv2 - 0.5) - 0.5) / d2;
+  float minorMask = 1.0 - saturate(min(g2.x, g2.y));
+
+  // Axis lines (X axis runs along +X with Z=0; Y/up axis line: X=0 column).
+  float xAxisMask = 1.0 - saturate(abs(worldXZ.y) / d1.y);
+  float zAxisMask = 1.0 - saturate(abs(worldXZ.x) / d1.x);
+
+  float3 col = base;
+  col = mix(col, minorLine, minorMask * 0.5);
+  col = mix(col, majorLine, majorMask);
+  col = mix(col, xAxisCol,  xAxisMask);
+  col = mix(col, zAxisCol,  zAxisMask);
+
+  // Distance fade — lines vanish into base as the floor recedes
+  float fade = exp(-distToCamera * 0.05);
+  col = mix(base, col, fade);
+  return col;
+}
+
 fragment GBufferOut fragment_gBuffer(
   VertexOut in [[stage_in]],
   depth2d<float> shadowTexture [[texture(ShadowTexture)]],
-  constant Material &material [[buffer(MaterialBuffer)]])
+  constant Material &material [[buffer(MaterialBuffer)]],
+  constant uint &materialKind [[buffer(MaterialKindBuffer)]],
+  constant Params &params      [[buffer(ParamsBuffer)]])
 {
   GBufferOut out;
-  // 2
-  out.albedo = float4(material.baseColor, 1.0);
-  // 3
+  if (materialKind == 1) {
+    float dist = distance(in.worldPosition, params.cameraPosition);
+    out.albedo = float4(blenderGrid(in.worldPosition.xz, dist), 1.0);
+  } else {
+    out.albedo = float4(material.baseColor, 1.0);
+  }
   out.albedo.a = calculateShadow(in.shadowPosition, shadowTexture);
-  // 4
   out.normal = float4(normalize(in.worldNormal), 1.0);
   out.position = float4(in.worldPosition, 1.0);
   return out;

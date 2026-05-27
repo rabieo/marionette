@@ -144,7 +144,9 @@ struct GameScene {
     Model(name: "treefir.obj")
   }()
   lazy var ground: Model = {
-    Model(name: "large_plane.obj")
+    let m = Model(name: "large_plane.obj")
+    m.materialKind = 1   // procedural Blender-style grid
+    return m
   }()
 
   var models: [Model] = []
