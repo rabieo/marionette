@@ -9,6 +9,8 @@ orientation, and pinch-to-grip.
 > hand-tracking → IK → robot pipeline are working; a custom differentiable
 > physics engine and sim-to-real bridge are the next milestones.
 
+![demo](docs/demo.gif)
+
 ---
 
 ## What this is
