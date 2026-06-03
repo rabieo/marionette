@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Xcode user state
+**/xcuserdata/
+**/*.xcuserstate
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+
+# Generated / runtime artifacts (regenerate on demand)
+python_sender/hand_landmarker.task
+python_sender/*.npz
+
+# Claude Code workspace
+.claude/

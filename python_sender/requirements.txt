@@ -3,3 +3,4 @@ opencv-python>=4.8.0
 ikpy>=3.3.4
 websockets>=12.0
 numpy>=1.24
+scipy>=1.11
